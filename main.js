@@ -1,8 +1,14 @@
-document.body.addEventListener('keydown', getKeyElement);
-document.body.addEventListener('keyup', getKeyElement);
+document.body.addEventListener('keydown', toggleDrumSound);
+document.body.addEventListener('keyup', toggleDrumSound);
 
-function getKeyElement(event) {
-	const keyElement = document.querySelector(`[data-key="${event.keyCode}"]`);
+function toggleDrumSound(event) {
+	const keyElement = document.querySelector(`.key[data-key="${event.keyCode}"]`);
 	if (!keyElement) return;
 	keyElement.classList.toggle('playing');
+	if (keyElement.classList.contains('playing')) {
+		const drumSound = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+		drumSound.currentTime = 0;
+		drumSound.play();
+	}
 }
+
